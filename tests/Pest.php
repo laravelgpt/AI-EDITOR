@@ -1,6 +1,6 @@
 <?php
 
-use AiEditor\AiTextEditor\MultiStackServiceProvider;
+use AiEditor\AiTextEditor\AiTextEditorServiceProvider;
 use AiEditor\AiTextEditor\Models\DynamicFeature;
 use AiEditor\AiTextEditor\Models\FeatureVersion;
 use AiEditor\AiTextEditor\Database\Factories\DynamicFeatureFactory;
@@ -504,27 +504,4 @@ function assertFeatureVersionHasMethods(FeatureVersion $version): void
     expect($version->getChangeSummary())->toBeArray();
 }
 
-/**
- * Assert that a feature has the expected attributes
- */
-function assertFeatureHasAttributes(DynamicFeature $feature): void
-{
-    expect($feature->status)->toBeString();
-    expect($feature->status_color)->toBeString();
-    expect($feature->category_name)->toBeString();
-    expect($feature->category_icon)->toBeString();
-    expect($feature->category_color)->toBeString();
-    expect($feature->ai_provider)->toBeString();
-    expect($feature->ai_prompt)->toBeString();
-    expect($feature->generated_at)->toBeString();
-    expect($feature->version)->toBeString();
-}
 
-/**
- * Assert that a feature version has the expected attributes
- */
-function assertFeatureVersionHasAttributes(FeatureVersion $version): void
-{
-    expect($version->getVersionInfo())->toBeArray();
-    expect($version->getChangeSummary())->toBeArray();
-}

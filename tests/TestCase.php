@@ -2,29 +2,23 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use AiEditor\AiTextEditor\MultiStackServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
+use AiEditor\AiTextEditor\AiTextEditorServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
-
     protected function setUp(): void
     {
         parent::setUp();
         
-        // Register the service provider
-        $this->app->register(MultiStackServiceProvider::class);
-        
         // Run migrations
-        $this->artisan('migrate');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
-    protected function tearDown(): void
+    protected function getPackageProviders($app)
     {
-        // Clean up after tests
-        $this->artisan('migrate:rollback');
-        
-        parent::tearDown();
+        return [
+            AiTextEditorServiceProvider::class,
+        ];
     }
 }
