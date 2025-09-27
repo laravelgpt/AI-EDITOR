@@ -59,31 +59,51 @@ class InstallCommand extends Command
         }
 
         // Show progress
-        $this->info('Starting installation...');
+        $this->info('🚀 Starting installation...');
         $this->newLine();
 
-        // Install
+        // Create progress bar
+        $progressBar = $this->output->createProgressBar(9);
+        $progressBar->setFormat('verbose');
+        $progressBar->start();
+
+        // Install with progress tracking
         $result = $installerService->install($stack, $theme, $options);
 
+        // Update progress bar based on logs
+        $progressCount = 0;
+        foreach ($result['logs'] as $log) {
+            if (strpos($log, 'Progress:') !== false) {
+                $progressCount++;
+                $progressBar->advance();
+            }
+        }
+
+        $progressBar->finish();
+        $this->newLine();
+        $this->newLine();
+
         if ($result['success']) {
-            $this->newLine();
-            $this->info('✅ Installation completed successfully!');
+            $this->info('🎉 Installation completed successfully!');
             $this->newLine();
             
             // Show next steps
+            $this->info('📋 Next Steps:');
             foreach ($result['next_steps'] as $step) {
-                $this->line($step);
+                $this->line("  • {$step}");
             }
+            
+            $this->newLine();
+            $this->info('🎯 You can now start using your AI Text Editor!');
             
             return 0;
         } else {
-            $this->newLine();
             $this->error('❌ Installation failed!');
             $this->error($result['error']);
             $this->newLine();
             
             // Show logs
-            $this->info('Installation logs:');
+            $this->info('📋 Installation logs:');
             foreach ($result['logs'] as $log) {
                 $this->line($log);
             }

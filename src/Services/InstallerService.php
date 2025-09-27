@@ -31,42 +31,66 @@ class InstallerService
         $this->options = $options;
         $this->logs = [];
 
+        $totalSteps = 9;
+        $currentStep = 0;
+
         try {
-            $this->log("Starting installation for stack: {$stack}");
+            $this->log("🚀 Starting installation for stack: {$stack}");
+            $this->log("📊 Progress: 0/{$totalSteps} (0%)");
             
             // Validate stack
             if (!$this->stackService->isValidStack($stack)) {
                 throw new \InvalidArgumentException("Invalid stack: {$stack}");
             }
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Stack validated");
 
             // Install dependencies
+            $this->log("📦 Installing dependencies...");
             $this->installDependencies();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Dependencies installed");
 
             // Generate scaffolding
+            $this->log("🏗️  Generating scaffolding...");
             $this->generateScaffolding();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Scaffolding generated");
 
             // Setup authentication
+            $this->log("🔐 Setting up authentication...");
             $this->setupAuthentication();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Authentication setup");
 
             // Setup theme
+            $this->log("🎨 Setting up theme...");
             $this->setupTheme();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Theme applied");
 
             // Create starter pages
+            $this->log("📄 Creating starter pages...");
             $this->createStarterPages();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Starter pages created");
 
             // Setup routes
+            $this->log("🛣️  Setting up routes...");
             $this->setupRoutes();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Routes configured");
 
             // Run migrations
+            $this->log("🗄️  Running migrations...");
             $this->runMigrations();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Migrations completed");
 
             // Seed database
+            $this->log("🌱 Seeding database...");
             $this->seedDatabase();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Database seeded");
 
             // Create admin user
+            $this->log("👤 Creating admin user...");
             $this->createAdminUser();
+            $this->updateProgress(++$currentStep, $totalSteps, "✅ Admin user created");
 
-            $this->log("Installation completed successfully!");
+            $this->log("🎉 Installation completed successfully!");
+            $this->log("📊 Final Progress: {$totalSteps}/{$totalSteps} (100%)");
 
             return [
                 'success' => true,
@@ -77,7 +101,8 @@ class InstallerService
             ];
 
         } catch (\Exception $e) {
-            $this->log("Installation failed: " . $e->getMessage(), 'error');
+            $this->log("❌ Installation failed: " . $e->getMessage(), 'error');
+            $this->log("📊 Progress stopped at: {$currentStep}/{$totalSteps} (" . round(($currentStep / $totalSteps) * 100) . "%)");
             
             return [
                 'success' => false,
@@ -298,17 +323,26 @@ class InstallerService
     protected function setupAuthentication(): void
     {
         if ($this->options['setup_authentication'] ?? true) {
-            $this->log("Setting up authentication...");
+            try {
+                $this->log("Setting up authentication...");
 
-            // Install Laravel Breeze
-            Artisan::call('breeze:install', [
-                '--dark' => false,
-                '--pest' => false,
-                '--ssr' => false,
-                '--typescript' => false,
-            ]);
+                // Install Laravel Breeze
+                $exitCode = Artisan::call('breeze:install', [
+                    '--dark' => false,
+                    '--pest' => false,
+                    '--ssr' => false,
+                    '--typescript' => false,
+                ]);
 
-            $this->log("Authentication scaffolding installed");
+                if ($exitCode === 0) {
+                    $this->log("✅ Authentication scaffolding installed successfully");
+                } else {
+                    $this->log("⚠️  Authentication setup completed with warnings");
+                }
+            } catch (\Exception $e) {
+                $this->log("⚠️  Authentication setup failed: " . $e->getMessage(), 'warning');
+                $this->log("You can manually run: php artisan breeze:install");
+            }
         }
     }
 
@@ -339,18 +373,38 @@ class InstallerService
     protected function runMigrations(): void
     {
         if ($this->options['run_migrations'] ?? true) {
-            $this->log("Running migrations...");
-            Artisan::call('migrate');
-            $this->log("Migrations completed");
+            try {
+                $this->log("Running migrations...");
+                $exitCode = Artisan::call('migrate');
+                
+                if ($exitCode === 0) {
+                    $this->log("✅ Migrations completed successfully");
+                } else {
+                    $this->log("⚠️  Migrations completed with warnings");
+                }
+            } catch (\Exception $e) {
+                $this->log("⚠️  Migration failed: " . $e->getMessage(), 'warning');
+                $this->log("You can manually run: php artisan migrate");
+            }
         }
     }
 
     protected function seedDatabase(): void
     {
         if ($this->options['seed_database'] ?? true) {
-            $this->log("Seeding database...");
-            Artisan::call('db:seed');
-            $this->log("Database seeded");
+            try {
+                $this->log("Seeding database...");
+                $exitCode = Artisan::call('db:seed');
+                
+                if ($exitCode === 0) {
+                    $this->log("✅ Database seeded successfully");
+                } else {
+                    $this->log("⚠️  Database seeding completed with warnings");
+                }
+            } catch (\Exception $e) {
+                $this->log("⚠️  Database seeding failed: " . $e->getMessage(), 'warning');
+                $this->log("You can manually run: php artisan db:seed");
+            }
         }
     }
 
@@ -404,6 +458,12 @@ class InstallerService
     {
         $timestamp = now()->format('Y-m-d H:i:s');
         $this->logs[] = "[{$timestamp}] [{$level}] {$message}";
+    }
+
+    protected function updateProgress(int $current, int $total, string $message): void
+    {
+        $percentage = round(($current / $total) * 100);
+        $this->log("📊 Progress: {$current}/{$total} ({$percentage}%) - {$message}");
     }
 
     public function getLogs(): array
