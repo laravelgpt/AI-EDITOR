@@ -63,6 +63,7 @@ class AiTextEditorServiceProvider extends ServiceProvider
                 \AiEditor\AiTextEditor\Console\Commands\WebInstallerCommand::class,
                 \AiEditor\AiTextEditor\Console\Commands\FixLaravel12Command::class,
                 \AiEditor\AiTextEditor\Console\Commands\PostInstallCommand::class,
+                \AiEditor\AiTextEditor\Console\Commands\CheckPackageHealthCommand::class,
             ]);
         }
     }
@@ -78,7 +79,9 @@ class AiTextEditorServiceProvider extends ServiceProvider
                     $artisanContent = file_get_contents($artisanPath);
                     if (strpos($artisanContent, 'handleCommand') !== false) {
                         // Laravel 12 compatibility issue detected
-                        $this->app['log']->warning('Laravel 12 compatibility issue detected. Run "php artisan ai-editor:fix-laravel12" to fix.');
+                        if (app()->bound('log')) {
+                            app('log')->warning('Laravel 12 compatibility issue detected. Run "php artisan ai-editor:fix-laravel12" to fix.');
+                        }
                     }
                 }
             }
