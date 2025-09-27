@@ -21,6 +21,9 @@ class AiTextEditorServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Check Laravel 12 compatibility
+        $this->checkLaravel12Compatibility();
+
         // Publish config
         $this->publishes([
             __DIR__ . '/../config/ai-text-editor.php' => config_path('ai-text-editor.php'),
@@ -60,6 +63,26 @@ class AiTextEditorServiceProvider extends ServiceProvider
                 \AiEditor\AiTextEditor\Console\Commands\WebInstallerCommand::class,
                 \AiEditor\AiTextEditor\Console\Commands\FixLaravel12Command::class,
             ]);
+        }
+    }
+
+    protected function checkLaravel12Compatibility(): void
+    {
+        try {
+            $laravelVersion = app()->version();
+            if (version_compare($laravelVersion, '12.0.0', '>=')) {
+                // Check if artisan file needs updating
+                $artisanPath = base_path('artisan');
+                if (file_exists($artisanPath)) {
+                    $artisanContent = file_get_contents($artisanPath);
+                    if (strpos($artisanContent, 'handleCommand') !== false) {
+                        // Laravel 12 compatibility issue detected
+                        $this->app['log']->warning('Laravel 12 compatibility issue detected. Run "php artisan ai-editor:fix-laravel12" to fix.');
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // Silently handle any errors during compatibility check
         }
     }
 

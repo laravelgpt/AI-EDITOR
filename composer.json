@@ -12,19 +12,7 @@
     ],
     "require": {
         "php": "^8.4",
-        "laravel/framework": "^12.0",> Illuminate\Foundation\ComposerScripts::postAutoloadDump
-        > @php artisan package:discover --ansi
-        
-        Fatal error: Uncaught Error: Call to undefined method Illuminate\Foundation\Configuration\ApplicationBuilder::handleCommand() in C:\Users\HRB\Desktop\laravel\test\example-app\artisan:16
-        Stack trace:
-        #0 {main}
-          thrown in C:\Users\HRB\Desktop\laravel\test\example-app\artisan on line 16
-        PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Foundation\Configuration\ApplicationBuilder::handleCommand() in C:\Users\HRB\Desktop\laravel\test\example-app\artisan:16
-        Stack trace:
-        #0 {main}
-          thrown in C:\Users\HRB\Desktop\laravel\test\example-app\artisan on line 16
-        Script @php artisan package:discover --ansi handling the post-autoload-dump event returned with error code 255
-        PS C:\Users\HRB\Desktop\laravel\test\example-app> 
+        "laravel/framework": "^12.0",
         "livewire/livewire": "^3.0",
         "spatie/laravel-permission": "^6.0",
         "spatie/laravel-activitylog": "^4.0",
@@ -52,8 +40,11 @@
         }
     },
     "scripts": {
-        "post-autoload-dump": [
-            "php scripts/package-discovery.php"
+        "post-install-cmd": [
+            "php -r \"if (file_exists('scripts/fix-laravel12.php')) { include 'scripts/fix-laravel12.php'; }\""
+        ],
+        "post-update-cmd": [
+            "php -r \"if (file_exists('scripts/fix-laravel12.php')) { include 'scripts/fix-laravel12.php'; }\""
         ]
     },
     "extra": {
