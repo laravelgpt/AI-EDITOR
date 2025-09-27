@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('multi_stack_installations', function (Blueprint $table) {
+        Schema::create('ai_text_editor_installations', function (Blueprint $table) {
             $table->id();
             $table->string('stack');
             $table->string('theme');
@@ -25,6 +25,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('multi_stack_installations');
+        Schema::dropIfExists('ai_text_editor_installations');
     }
 };

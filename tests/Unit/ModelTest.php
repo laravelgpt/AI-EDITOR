@@ -1,7 +1,7 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Models\DynamicFeature;
-use LaravelStarterKit\MultiStack\Models\FeatureVersion;
+use AiEditor\AiTextEditor\Models\DynamicFeature;
+use AiEditor\AiTextEditor\Models\FeatureVersion;
 
 beforeEach(function () {
     $this->feature = DynamicFeature::factory()->create();

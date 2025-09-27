@@ -1,8 +1,8 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Http\Controllers\InstallerController;
-use LaravelStarterKit\MultiStack\Http\Controllers\StackController;
-use LaravelStarterKit\MultiStack\Http\Controllers\ThemeController;
+use AiEditor\AiTextEditor\Http\Controllers\InstallerController;
+use AiEditor\AiTextEditor\Http\Controllers\StackController;
+use AiEditor\AiTextEditor\Http\Controllers\ThemeController;
 
 beforeEach(function () {
     $this->installerController = app(InstallerController::class);

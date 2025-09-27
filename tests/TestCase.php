@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use LaravelStarterKit\MultiStack\MultiStackServiceProvider;
+use AiEditor\AiTextEditor\MultiStackServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {

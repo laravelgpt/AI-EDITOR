@@ -1,10 +1,10 @@
 <?php
 
-use LaravelStarterKit\MultiStack\MultiStackServiceProvider;
-use LaravelStarterKit\MultiStack\Models\DynamicFeature;
-use LaravelStarterKit\MultiStack\Models\FeatureVersion;
-use LaravelStarterKit\MultiStack\Database\Factories\DynamicFeatureFactory;
-use LaravelStarterKit\MultiStack\Database\Factories\FeatureVersionFactory;
+use AiEditor\AiTextEditor\MultiStackServiceProvider;
+use AiEditor\AiTextEditor\Models\DynamicFeature;
+use AiEditor\AiTextEditor\Models\FeatureVersion;
+use AiEditor\AiTextEditor\Database\Factories\DynamicFeatureFactory;
+use AiEditor\AiTextEditor\Database\Factories\FeatureVersionFactory;
 
 /*
 |--------------------------------------------------------------------------

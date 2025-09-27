@@ -1,8 +1,8 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Services\AiFeatureBuilderService;
-use LaravelStarterKit\MultiStack\Models\DynamicFeature;
-use LaravelStarterKit\MultiStack\Models\FeatureVersion;
+use AiEditor\AiTextEditor\Services\AiFeatureBuilderService;
+use AiEditor\AiTextEditor\Models\DynamicFeature;
+use AiEditor\AiTextEditor\Models\FeatureVersion;
 
 beforeEach(function () {
     $this->aiService = app(AiFeatureBuilderService::class);

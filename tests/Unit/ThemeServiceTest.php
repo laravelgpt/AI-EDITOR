@@ -1,6 +1,6 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Services\ThemeService;
+use AiEditor\AiTextEditor\Services\ThemeService;
 
 beforeEach(function () {
     $this->themeService = app(ThemeService::class);

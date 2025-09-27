@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Str;
-use LaravelStarterKit\MultiStack\Services\StackService;
-use LaravelStarterKit\MultiStack\Services\ThemeService;
+use AiEditor\AiTextEditor\Services\StackService;
+use AiEditor\AiTextEditor\Services\ThemeService;
 
 class InstallerService
 {

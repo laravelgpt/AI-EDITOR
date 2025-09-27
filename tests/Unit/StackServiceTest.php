@@ -1,6 +1,6 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Services\StackService;
+use AiEditor\AiTextEditor\Services\StackService;
 
 beforeEach(function () {
     $this->stackService = app(StackService::class);

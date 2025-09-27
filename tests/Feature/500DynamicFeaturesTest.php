@@ -1,7 +1,7 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Models\DynamicFeature;
-use LaravelStarterKit\MultiStack\Models\FeatureVersion;
+use AiEditor\AiTextEditor\Models\DynamicFeature;
+use AiEditor\AiTextEditor\Models\FeatureVersion;
 
 describe('500+ Dynamic Features Examples', function () {
     it('can create authentication features', function () {

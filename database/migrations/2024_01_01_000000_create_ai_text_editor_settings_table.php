@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('multi_stack_settings', function (Blueprint $table) {
+        Schema::create('ai_text_editor_settings', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
             $table->text('value')->nullable();
@@ -20,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('multi_stack_settings');
+        Schema::dropIfExists('ai_text_editor_settings');
     }
 };

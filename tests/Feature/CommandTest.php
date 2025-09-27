@@ -1,10 +1,10 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Console\Commands\InstallCommand;
-use LaravelStarterKit\MultiStack\Console\Commands\WebInstallerCommand;
-use LaravelStarterKit\MultiStack\Console\Commands\StackCommand;
-use LaravelStarterKit\MultiStack\Console\Commands\ThemeCommand;
-use LaravelStarterKit\MultiStack\Console\Commands\AiFeatureCommand;
+use AiEditor\AiTextEditor\Console\Commands\InstallCommand;
+use AiEditor\AiTextEditor\Console\Commands\WebInstallerCommand;
+use AiEditor\AiTextEditor\Console\Commands\StackCommand;
+use AiEditor\AiTextEditor\Console\Commands\ThemeCommand;
+use AiEditor\AiTextEditor\Console\Commands\AiFeatureCommand;
 
 describe('Install Command', function () {
     it('can be instantiated', function () {

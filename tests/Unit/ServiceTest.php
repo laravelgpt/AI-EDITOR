@@ -1,9 +1,9 @@
 <?php
 
-use LaravelStarterKit\MultiStack\Services\InstallerService;
-use LaravelStarterKit\MultiStack\Services\StackService;
-use LaravelStarterKit\MultiStack\Services\ThemeService;
-use LaravelStarterKit\MultiStack\Services\AiFeatureBuilderService;
+use AiEditor\AiTextEditor\Services\InstallerService;
+use AiEditor\AiTextEditor\Services\StackService;
+use AiEditor\AiTextEditor\Services\ThemeService;
+use AiEditor\AiTextEditor\Services\AiFeatureBuilderService;
 
 beforeEach(function () {
     $this->installerService = app(InstallerService::class);

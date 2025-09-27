@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Database\Factories;
+namespace AiEditor\AiTextEditor\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LaravelStarterKit\MultiStack\Models\DynamicFeature;
-use LaravelStarterKit\MultiStack\Models\FeatureVersion;
+use AiEditor\AiTextEditor\Models\DynamicFeature;
+use AiEditor\AiTextEditor\Models\FeatureVersion;
 
 class DynamicFeatureFactory extends Factory
 {

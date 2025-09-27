@@ -68,7 +68,7 @@ composer require ai-editor/ai-text-editor
 ### 2. Publish Configuration
 
 ```bash
-php artisan vendor:publish --provider="LaravelStarterKit\MultiStack\MultiStackServiceProvider" --tag="config"
+php artisan vendor:publish --provider="AiEditor\AiTextEditor\AiTextEditorServiceProvider" --tag="config"
 ```
 
 ### 3. Run Installation
