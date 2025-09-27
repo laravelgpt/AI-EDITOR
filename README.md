@@ -1,12 +1,20 @@
-# Laravel Multi-Stack Starter Kit
+# Laravel AI-Powered Text Editor
 
-A comprehensive Laravel 12+ package that provides **interactive installation** and **multi-stack support** for modern web development. Choose between **Blade+Livewire**, **Vue.js SPA**, or **React+Next.js** with a single command.
+A comprehensive Laravel 12+ package that provides **AI-powered text editing** capabilities with **multi-stack support** for modern web development. Choose between **Blade+Livewire**, **Vue.js SPA**, or **React+Next.js** with intelligent content generation and editing features.
 
 ## 🚀 Features
 
+### 🤖 **AI-Powered Features**
+- **AI Text Generation**: Generate content with OpenAI, Anthropic, Google
+- **Smart Editing**: AI-powered text editing and rewriting
+- **Content Summarization**: Automatic content summarization
+- **Text Completion**: Intelligent text completion
+- **Memory System**: Version control and content history
+- **Multi-Provider Support**: OpenAI, Anthropic, Google, HuggingFace, OpenRouter
+
 ### 🎯 **Interactive Installation**
-- **CLI Installer**: `php artisan multi-stack:install`
-- **Web Installer**: `php artisan multi-stack:web-installer`
+- **CLI Installer**: `php artisan ai-editor:install`
+- **Web Installer**: `php artisan ai-editor:web-installer`
 - **Stack Selection**: Choose your preferred frontend stack
 - **Theme Selection**: Multiple built-in themes
 - **Dependency Management**: Auto-install Composer and NPM packages
@@ -54,7 +62,7 @@ A comprehensive Laravel 12+ package that provides **interactive installation** a
 ### 1. Install via Composer
 
 ```bash
-composer require laravel-starter-kit/multi-stack
+composer require ai-editor/ai-text-editor
 ```
 
 ### 2. Publish Configuration
@@ -67,12 +75,12 @@ php artisan vendor:publish --provider="LaravelStarterKit\MultiStack\MultiStackSe
 
 #### CLI Installer (Recommended)
 ```bash
-php artisan multi-stack:install
+php artisan ai-editor:install
 ```
 
 #### Web Installer
 ```bash
-php artisan multi-stack:web-installer
+php artisan ai-editor:web-installer
 # Visit http://localhost:8001/multi-stack/installer
 ```
 
@@ -82,7 +90,7 @@ php artisan multi-stack:web-installer
 
 ```bash
 # Install with default settings
-php artisan multi-stack:install
+php artisan ai-editor:install
 
 # Choose your stack:
 # 1 → Blade + Livewire
@@ -94,20 +102,20 @@ php artisan multi-stack:install
 
 ```bash
 # Install specific stack
-php artisan multi-stack:install --stack=vue-spa --theme=dark
+php artisan ai-editor:install --stack=vue-spa --theme=dark
 
 # Skip dependencies
-php artisan multi-stack:install --no-deps
+php artisan ai-editor:install --no-deps
 
 # Skip migrations
-php artisan multi-stack:install --no-migrate
+php artisan ai-editor:install --no-migrate
 ```
 
 ### Web Installer
 
 ```bash
 # Start web installer
-php artisan multi-stack:web-installer
+php artisan ai-editor:web-installer
 
 # Visit http://localhost:8001/multi-stack/installer
 # Select stack, theme, and options
@@ -183,7 +191,7 @@ return [
 
 ### Blade + Livewire
 ```bash
-php artisan multi-stack:install --stack=blade-livewire
+php artisan ai-editor:install --stack=blade-livewire
 ```
 
 **Features:**
@@ -201,7 +209,7 @@ php artisan multi-stack:install --stack=blade-livewire
 
 ### Vue.js SPA
 ```bash
-php artisan multi-stack:install --stack=vue-spa
+php artisan ai-editor:install --stack=vue-spa
 ```
 
 **Features:**
@@ -220,7 +228,7 @@ php artisan multi-stack:install --stack=vue-spa
 
 ### React + Next.js
 ```bash
-php artisan multi-stack:install --stack=react-nextjs
+php artisan ai-editor:install --stack=react-nextjs
 ```
 
 **Features:**
@@ -242,13 +250,13 @@ php artisan multi-stack:install --stack=react-nextjs
 
 ```bash
 # List all themes
-php artisan multi-stack:themes --list
+php artisan ai-editor:themes --list
 
 # Apply theme
-php artisan multi-stack:themes --apply=dark
+php artisan ai-editor:themes --apply=dark
 
 # Show theme details
-php artisan multi-stack:themes dark
+php artisan ai-editor:themes dark
 ```
 
 ### Custom Themes
@@ -273,37 +281,37 @@ php artisan multi-stack:themes dark
 ### Installation Commands
 ```bash
 # CLI installer
-php artisan multi-stack:install
+php artisan ai-editor:install
 
 # Web installer
-php artisan multi-stack:web-installer
+php artisan ai-editor:web-installer
 
 # With options
-php artisan multi-stack:install --stack=vue-spa --theme=dark --no-deps
+php artisan ai-editor:install --stack=vue-spa --theme=dark --no-deps
 ```
 
 ### Stack Management
 ```bash
 # List available stacks
-php artisan multi-stack:stacks
+php artisan ai-editor:stacks
 
 # Show stack details
-php artisan multi-stack:stacks vue-spa
+php artisan ai-editor:stacks vue-spa
 
 # Switch stack (future feature)
-php artisan multi-stack:stacks --switch=react-nextjs
+php artisan ai-editor:stacks --switch=react-nextjs
 ```
 
 ### Theme Management
 ```bash
 # List themes
-php artisan multi-stack:themes --list
+php artisan ai-editor:themes --list
 
 # Apply theme
-php artisan multi-stack:themes --apply=dark
+php artisan ai-editor:themes --apply=dark
 
 # Show theme details
-php artisan multi-stack:themes dark
+php artisan ai-editor:themes dark
 ```
 
 ## 🌐 Web Installer
@@ -311,7 +319,7 @@ php artisan multi-stack:themes dark
 ### Starting the Web Installer
 
 ```bash
-php artisan multi-stack:web-installer
+php artisan ai-editor:web-installer
 # Visit http://localhost:8001/multi-stack/installer
 ```
 
@@ -461,19 +469,19 @@ $installerService->trackInstallation($stack, $theme);
 ### Stack Updates
 ```bash
 # Update all stacks
-php artisan multi-stack:stacks update-all
+php artisan ai-editor:stacks update-all
 
 # Update specific stack
-php artisan multi-stack:stacks update vue-spa
+php artisan ai-editor:stacks update vue-spa
 ```
 
 ### Theme Updates
 ```bash
 # Update all themes
-php artisan multi-stack:themes update-all
+php artisan ai-editor:themes update-all
 
 # Update specific theme
-php artisan multi-stack:themes update dark
+php artisan ai-editor:themes update dark
 ```
 
 ## 🤝 Contributing
@@ -490,9 +498,9 @@ This package is open-sourced software licensed under the [MIT license](LICENSE).
 
 ## 🆘 Support
 
-- **Documentation**: [Package Documentation](https://github.com/laravel-starter-kit/multi-stack)
-- **Issues**: [GitHub Issues](https://github.com/laravel-starter-kit/multi-stack/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/laravel-starter-kit/multi-stack/discussions)
+- **Documentation**: [Package Documentation](https://github.com/ai-editor/ai-text-editor)
+- **Issues**: [GitHub Issues](https://github.com/ai-editor/ai-text-editor/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/ai-editor/ai-text-editor/discussions)
 
 ## 🎉 What's Included
 

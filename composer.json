@@ -1,13 +1,13 @@
 {
-    "name": "laravel-starter-kit/multi-stack",
-    "description": "Laravel 12+ Multi-Stack Starter Kit with Interactive Installation - Blade+Livewire, Vue.js SPA, React+Next.js",
+    "name": "ai-editor/ai-text-editor",
+    "description": "Laravel 12+ AI-Powered Text Editor with Multi-Stack Support - Blade+Livewire, Vue.js SPA, React+Next.js",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "starter-kit", "blade", "livewire", "vue", "react", "nextjs", "spa", "multi-stack"],
+    "keywords": ["laravel", "ai-editor", "text-editor", "ai", "blade", "livewire", "vue", "react", "nextjs", "spa", "multi-stack"],
     "authors": [
         {
-            "name": "Laravel Multi-Stack Team",
-            "email": "support@laravel-multi-stack.com"
+            "name": "AI Editor Team",
+            "email": "support@ai-editor.com"
         }
     ],
     "require": {
@@ -35,27 +35,27 @@
     },
     "autoload": {
         "psr-4": {
-            "LaravelStarterKit\\MultiStack\\": "src/"
+            "AiEditor\\AiTextEditor\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaravelStarterKit\\MultiStack\\Tests\\": "tests/"
+            "AiEditor\\AiTextEditor\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelStarterKit\\MultiStack\\MultiStackServiceProvider"
+                "AiEditor\\AiTextEditor\\AiTextEditorServiceProvider"
             ]
         }
     },
     "bin": [
-        "bin/laravel-multi-stack"
+        "bin/ai-text-editor"
     ],
     "scripts": {
         "post-install-cmd": [
-            "LaravelStarterKit\\MultiStack\\Console\\Commands\\PostInstallCommand::run"
+            "AiEditor\\AiTextEditor\\Console\\Commands\\PostInstallCommand::run"
         ]
     },
     "minimum-stability": "stable",
