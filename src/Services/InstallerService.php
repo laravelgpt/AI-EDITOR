@@ -189,14 +189,59 @@ class InstallerService
         $dependencies = $this->stackService->getNpmDependencies($this->selectedStack);
         
         if (!empty($dependencies)) {
-            $this->log("Installing NPM dependencies: " . implode(', ', $dependencies));
-            
-            $result = Process::run("npm install " . implode(' ', $dependencies));
-            
-            if ($result->failed()) {
-                throw new \Exception("Failed to install NPM dependencies: " . $result->errorOutput());
+            try {
+                $this->log("Installing NPM dependencies: " . implode(', ', $dependencies));
+                
+                // Check if npm is available
+                $npmCheck = Process::run("npm --version");
+                if ($npmCheck->failed()) {
+                    $this->log("⚠️  NPM is not available. Skipping NPM dependencies.", 'warning');
+                    $this->log("You can manually install them later with: npm install " . implode(' ', $dependencies));
+                    return;
+                }
+                
+                // Check if package.json exists
+                if (!File::exists(base_path('package.json'))) {
+                    $this->log("⚠️  No package.json found. Creating basic package.json...");
+                    $this->createBasicPackageJson();
+                }
+                
+                $result = Process::run("npm install " . implode(' ', $dependencies));
+                
+                if ($result->failed()) {
+                    $this->log("⚠️  NPM installation failed: " . $result->errorOutput(), 'warning');
+                    $this->log("You can manually install dependencies later with: npm install " . implode(' ', $dependencies));
+                    $this->log("Or skip NPM dependencies entirely if not needed for your stack.");
+                } else {
+                    $this->log("✅ NPM dependencies installed successfully");
+                }
+            } catch (\Exception $e) {
+                $this->log("⚠️  NPM installation failed: " . $e->getMessage(), 'warning');
+                $this->log("You can manually install dependencies later with: npm install " . implode(' ', $dependencies));
             }
         }
+    }
+
+    protected function createBasicPackageJson(): void
+    {
+        $packageJson = [
+            'name' => 'ai-text-editor-app',
+            'version' => '1.0.0',
+            'description' => 'AI Text Editor Application',
+            'private' => true,
+            'scripts' => [
+                'dev' => 'vite',
+                'build' => 'vite build',
+                'watch' => 'vite build --watch'
+            ],
+            'devDependencies' => [
+                'vite' => '^5.0',
+                'laravel-vite-plugin' => '^1.0'
+            ]
+        ];
+
+        File::put(base_path('package.json'), json_encode($packageJson, JSON_PRETTY_PRINT));
+        $this->log("Created basic package.json");
     }
 
     protected function generateScaffolding(): void

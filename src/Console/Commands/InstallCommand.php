@@ -13,6 +13,7 @@ class InstallCommand extends Command
                             {--stack= : The frontend stack to install (laravel-default, livewire, vue-js, react-nextjs)}
                             {--theme= : The theme to apply (default, dark, minimal, colorful, glassmorphism)}
                             {--no-deps : Skip installing dependencies}
+                            {--no-npm : Skip installing NPM dependencies}
                             {--no-migrate : Skip running migrations}
                             {--no-seed : Skip seeding database}
                             {--no-auth : Skip setting up authentication}
@@ -183,7 +184,7 @@ class InstallCommand extends Command
     {
         $options = [
             'install_composer' => !$this->option('no-deps'),
-            'install_npm' => !$this->option('no-deps'),
+            'install_npm' => !$this->option('no-deps') && !$this->option('no-npm'),
             'run_migrations' => !$this->option('no-migrate'),
             'seed_database' => !$this->option('no-seed'),
             'setup_authentication' => !$this->option('no-auth'),
@@ -191,10 +192,21 @@ class InstallCommand extends Command
             'setup_theme' => true,
         ];
 
+        // Check NPM availability if NPM installation is enabled
+        if ($options['install_npm']) {
+            $npmCheck = \Illuminate\Support\Facades\Process::run('npm --version');
+            if ($npmCheck->failed()) {
+                $this->warn('⚠️  NPM is not available. NPM dependencies will be skipped.');
+                $this->line('You can install Node.js and NPM later, or use --no-npm to skip NPM dependencies.');
+                $options['install_npm'] = false;
+            }
+        }
+
         // Show options summary
         $this->newLine();
         $this->info('Installation Options:');
-        $this->line("Install Dependencies: " . ($options['install_composer'] ? '✅' : '❌'));
+        $this->line("Install Composer Dependencies: " . ($options['install_composer'] ? '✅' : '❌'));
+        $this->line("Install NPM Dependencies: " . ($options['install_npm'] ? '✅' : '❌'));
         $this->line("Run Migrations: " . ($options['run_migrations'] ? '✅' : '❌'));
         $this->line("Seed Database: " . ($options['seed_database'] ? '✅' : '❌'));
         $this->line("Setup Authentication: " . ($options['setup_authentication'] ? '✅' : '❌'));
