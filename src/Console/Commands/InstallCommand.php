@@ -10,15 +10,15 @@ use AiEditor\AiTextEditor\Services\ThemeService;
 class InstallCommand extends Command
 {
     protected $signature = 'ai-editor:install 
-                            {--stack= : The frontend stack to install (blade-livewire, vue-spa, react-nextjs)}
-                            {--theme= : The theme to apply (default, dark, minimal, colorful)}
+                            {--stack= : The frontend stack to install (laravel-default, livewire, vue-js, react-nextjs)}
+                            {--theme= : The theme to apply (default, dark, minimal, colorful, glassmorphism)}
                             {--no-deps : Skip installing dependencies}
                             {--no-migrate : Skip running migrations}
                             {--no-seed : Skip seeding database}
                             {--no-auth : Skip setting up authentication}
                             {--no-admin : Skip creating admin user}';
 
-    protected $description = 'Install Laravel Multi-Stack Starter Kit with Interactive Selection';
+    protected $description = 'Install AI Text Editor with Multi-Stack Support - Laravel Default, Livewire, Vue.js, React+Next.js';
 
     public function handle(
         InstallerService $installerService,

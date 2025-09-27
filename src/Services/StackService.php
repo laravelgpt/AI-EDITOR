@@ -63,7 +63,7 @@ class StackService
         ];
 
         switch ($stack) {
-            case 'vue-spa':
+            case 'vue-js':
                 $scripts = array_merge($scripts, [
                     'serve' => 'vite --host',
                     'type-check' => 'vue-tsc --noEmit'

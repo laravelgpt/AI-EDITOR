@@ -42,9 +42,27 @@ return [
     |--------------------------------------------------------------------------
     */
     'stacks' => [
-        'blade-livewire' => [
-            'name' => 'Blade + Livewire',
-            'description' => 'Traditional Laravel with Blade templates and Livewire components',
+        'laravel-default' => [
+            'name' => 'Laravel Default',
+            'description' => 'Standard Laravel with Blade templates and minimal frontend',
+            'dependencies' => [
+                'composer' => [
+                    'laravel/breeze',
+                ],
+                'npm' => [
+                    '@tailwindcss/forms',
+                ],
+            ],
+            'features' => [
+                'Server-side rendering',
+                'Blade templating',
+                'Authentication',
+                'Simple and lightweight',
+            ],
+        ],
+        'livewire' => [
+            'name' => 'Livewire',
+            'description' => 'Laravel Livewire for reactive components without JavaScript',
             'dependencies' => [
                 'composer' => [
                     'livewire/livewire',
@@ -59,12 +77,12 @@ return [
                 'Server-side rendering',
                 'Real-time updates',
                 'Form handling',
-                'Authentication',
+                'No JavaScript required',
             ],
         ],
-        'vue-spa' => [
-            'name' => 'Vue.js SPA',
-            'description' => 'Single Page Application with Vue.js frontend',
+        'vue-js' => [
+            'name' => 'Vue.js',
+            'description' => 'Vue.js Single Page Application with Laravel backend',
             'dependencies' => [
                 'composer' => [
                     'laravel/sanctum',
@@ -87,7 +105,7 @@ return [
         ],
         'react-nextjs' => [
             'name' => 'React + Next.js',
-            'description' => 'React frontend with Next.js framework',
+            'description' => 'React frontend with Next.js framework and Laravel API',
             'dependencies' => [
                 'composer' => [
                     'laravel/sanctum',
@@ -178,6 +196,23 @@ return [
                 'Vibrant colors',
                 'Creative design',
                 'Engaging interface',
+            ],
+        ],
+        'glassmorphism' => [
+            'name' => 'Glassmorphism Theme',
+            'description' => 'Modern glassmorphism design with frosted glass effects',
+            'colors' => [
+                'primary' => '#6366F1',
+                'secondary' => '#8B5CF6',
+                'success' => '#10B981',
+                'warning' => '#F59E0B',
+                'error' => '#EF4444',
+            ],
+            'features' => [
+                'Frosted glass effects',
+                'Modern design',
+                'Transparent elements',
+                'Blur effects',
             ],
         ],
     ],

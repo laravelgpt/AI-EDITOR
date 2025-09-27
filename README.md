@@ -19,16 +19,23 @@ A comprehensive Laravel 12+ package that provides **AI-powered text editing** ca
 - **Theme Selection**: Multiple built-in themes
 - **Dependency Management**: Auto-install Composer and NPM packages
 
-### 📦 **Three Frontend Stacks**
+### 📦 **Four Frontend Stacks**
 
-#### **1. Blade + Livewire** ⚡
+#### **0. Laravel Default** 🚀
+- **Standard Laravel** with Blade templates
+- **Minimal frontend** dependencies
+- **Server-side rendering** with Blade
+- **Tailwind CSS** for styling
+- **Simple and lightweight**
+
+#### **1. Livewire** ⚡
 - **Real-time updates** with Livewire
 - **Server-side rendering** with Blade
 - **Alpine.js** for interactivity
 - **Tailwind CSS** for styling
-- **Component-based** architecture
+- **No JavaScript required**
 
-#### **2. Vue.js SPA** 💚
+#### **2. Vue.js** 💚
 - **Vue 3** with Composition API
 - **Vue Router** for navigation
 - **Pinia** for state management
@@ -47,6 +54,7 @@ A comprehensive Laravel 12+ package that provides **AI-powered text editing** ca
 - **Dark**: Dark theme with modern aesthetics
 - **Minimal**: Minimalist design
 - **Colorful**: Vibrant theme with multiple colors
+- **Glassmorphism**: Modern frosted glass effects with blur
 - **Custom**: Create your own themes
 
 ### 🔧 **Built-in Features**
