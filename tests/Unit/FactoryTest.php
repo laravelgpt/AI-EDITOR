@@ -1,31 +1,32 @@
 <?php
 
+namespace Tests\Unit;
+
+use Tests\TestCase;
 use AiEditor\AiTextEditor\Models\DynamicFeature;
 use AiEditor\AiTextEditor\Models\FeatureVersion;
 
-beforeEach(function () {
-    $this->feature = DynamicFeature::factory()->create();
-    $this->version = FeatureVersion::factory()->create(['feature_id' => $this->feature->id]);
-});
-
-describe('Dynamic Feature Factory', function () {
-    it('can create feature with default attributes', function () {
+class FactoryTest extends TestCase
+{
+    public function test_can_create_feature_with_default_attributes()
+    {
         $feature = DynamicFeature::factory()->create();
         
-        expect($feature)->toBeInstanceOf(DynamicFeature::class);
-        expect($feature->name)->toBeString();
-        expect($feature->slug)->toBeString();
-        expect($feature->description)->toBeString();
-        expect($feature->type)->toBeString();
-        expect($feature->category)->toBeString();
-        expect($feature->is_enabled)->toBeBool();
-        expect($feature->is_ai_generated)->toBeBool();
-        expect($feature->configuration)->toBeArray();
-        expect($feature->code_snapshot)->toBeArray();
-        expect($feature->metadata)->toBeArray();
-    });
+        $this->assertInstanceOf(DynamicFeature::class, $feature);
+        $this->assertIsString($feature->name);
+        $this->assertIsString($feature->slug);
+        $this->assertIsString($feature->description);
+        $this->assertIsString($feature->type);
+        $this->assertIsString($feature->category);
+        $this->assertIsBool($feature->is_enabled);
+        $this->assertIsBool($feature->is_ai_generated);
+        $this->assertIsArray($feature->configuration);
+        $this->assertIsArray($feature->code_snapshot);
+        $this->assertIsArray($feature->metadata);
+    }
 
-    it('can create feature with custom attributes', function () {
+    public function test_can_create_feature_with_custom_attributes()
+    {
         $feature = DynamicFeature::factory()->create([
             'name' => 'Custom Feature',
             'slug' => 'custom-feature',
@@ -36,57 +37,64 @@ describe('Dynamic Feature Factory', function () {
             'is_ai_generated' => false,
         ]);
         
-        expect($feature->name)->toBe('Custom Feature');
-        expect($feature->slug)->toBe('custom-feature');
-        expect($feature->description)->toBe('A custom feature');
-        expect($feature->type)->toBe('crud');
-        expect($feature->category)->toBe('custom');
-        expect($feature->is_enabled)->toBeTrue();
-        expect($feature->is_ai_generated)->toBeFalse();
-    });
+        $this->assertEquals('Custom Feature', $feature->name);
+        $this->assertEquals('custom-feature', $feature->slug);
+        $this->assertEquals('A custom feature', $feature->description);
+        $this->assertEquals('crud', $feature->type);
+        $this->assertEquals('custom', $feature->category);
+        $this->assertTrue($feature->is_enabled);
+        $this->assertFalse($feature->is_ai_generated);
+    }
 
-    it('can create AI generated feature', function () {
+    public function test_can_create_ai_generated_feature()
+    {
         $feature = DynamicFeature::factory()->aiGenerated()->create();
         
-        expect($feature->is_ai_generated)->toBeTrue();
-        expect($feature->metadata)->toHaveKey('ai_provider');
-        expect($feature->metadata)->toHaveKey('ai_prompt');
-        expect($feature->metadata)->toHaveKey('generated_at');
-        expect($feature->metadata)->toHaveKey('version');
-    });
+        $this->assertTrue($feature->is_ai_generated);
+        $this->assertArrayHasKey('ai_provider', $feature->metadata);
+        $this->assertArrayHasKey('ai_prompt', $feature->metadata);
+        $this->assertArrayHasKey('generated_at', $feature->metadata);
+        $this->assertArrayHasKey('version', $feature->metadata);
+    }
 
-    it('can create enabled feature', function () {
+    public function test_can_create_enabled_feature()
+    {
         $feature = DynamicFeature::factory()->enabled()->create();
         
-        expect($feature->is_enabled)->toBeTrue();
-    });
+        $this->assertTrue($feature->is_enabled);
+    }
 
-    it('can create disabled feature', function () {
+    public function test_can_create_disabled_feature()
+    {
         $feature = DynamicFeature::factory()->disabled()->create();
         
-        expect($feature->is_enabled)->toBeFalse();
-    });
+        $this->assertFalse($feature->is_enabled);
+    }
 
-    it('can create feature with specific category', function () {
+    public function test_can_create_feature_with_specific_category()
+    {
         $feature = DynamicFeature::factory()->create(['category' => 'authentication']);
         
-        expect($feature->category)->toBe('authentication');
-    });
+        $this->assertEquals('authentication', $feature->category);
+    }
 
-    it('can create feature with specific type', function () {
+    public function test_can_create_feature_with_specific_type()
+    {
         $feature = DynamicFeature::factory()->create(['type' => 'api']);
         
-        expect($feature->type)->toBe('api');
-    });
+        $this->assertEquals('api', $feature->type);
+    }
 
-    it('can create multiple features', function () {
+    public function test_can_create_multiple_features()
+    {
         $features = DynamicFeature::factory()->count(3)->create();
         
-        expect($features)->toHaveCount(3);
-        expect($features->first())->toBeInstanceOf(DynamicFeature::class);
-    });
+        $this->assertCount(3, $features);
+        $this->assertInstanceOf(DynamicFeature::class, $features->first());
+    }
 
-    it('can create feature with custom configuration', function () {
+    public function test_can_create_feature_with_custom_configuration()
+    {
         $configuration = [
             'model' => 'TestModel',
             'table' => 'test_table',
@@ -106,16 +114,17 @@ describe('Dynamic Feature Factory', function () {
         
         $feature = DynamicFeature::factory()->create(['configuration' => $configuration]);
         
-        expect($feature->configuration)->toBe($configuration);
-        expect($feature->getModelName())->toBe('TestModel');
-        expect($feature->getTableName())->toBe('test_table');
-        expect($feature->getPermissions())->toBe(['view', 'create', 'edit', 'delete']);
-        expect($feature->getMiddleware())->toBe(['auth']);
-        expect($feature->isApiEnabled())->toBeTrue();
-        expect($feature->hasDashboardWidget())->toBeFalse();
-    });
+        $this->assertEquals($configuration, $feature->configuration);
+        $this->assertEquals('TestModel', $feature->getModelName());
+        $this->assertEquals('test_table', $feature->getTableName());
+        $this->assertEquals(['view', 'create', 'edit', 'delete'], $feature->getPermissions());
+        $this->assertEquals(['auth'], $feature->getMiddleware());
+        $this->assertTrue($feature->isApiEnabled());
+        $this->assertFalse($feature->hasDashboardWidget());
+    }
 
-    it('can create feature with custom code snapshot', function () {
+    public function test_can_create_feature_with_custom_code_snapshot()
+    {
         $codeSnapshot = [
             'model' => '// Model code',
             'controller' => '// Controller code',
@@ -132,16 +141,17 @@ describe('Dynamic Feature Factory', function () {
         
         $feature = DynamicFeature::factory()->create(['code_snapshot' => $codeSnapshot]);
         
-        expect($feature->code_snapshot)->toBe($codeSnapshot);
-        expect($feature->getModelCode())->toBe('// Model code');
-        expect($feature->getControllerCode())->toBe('// Controller code');
-        expect($feature->getMigrationCode())->toBe('// Migration code');
-        expect($feature->getViewsCode())->toBe($codeSnapshot['views']);
-        expect($feature->getRouteCode())->toBe('// Route definitions');
-        expect($feature->getApiRouteCode())->toBe('// API route definitions');
-    });
+        $this->assertEquals($codeSnapshot, $feature->code_snapshot);
+        $this->assertEquals('// Model code', $feature->getModelCode());
+        $this->assertEquals('// Controller code', $feature->getControllerCode());
+        $this->assertEquals('// Migration code', $feature->getMigrationCode());
+        $this->assertEquals($codeSnapshot['views'], $feature->getViewsCode());
+        $this->assertEquals('// Route definitions', $feature->getRouteCode());
+        $this->assertEquals('// API route definitions', $feature->getApiRouteCode());
+    }
 
-    it('can create feature with custom metadata', function () {
+    public function test_can_create_feature_with_custom_metadata()
+    {
         $metadata = [
             'ai_provider' => 'openai',
             'ai_prompt' => 'Create a blog system with categories and tags',
@@ -152,51 +162,54 @@ describe('Dynamic Feature Factory', function () {
         
         $feature = DynamicFeature::factory()->create(['metadata' => $metadata]);
         
-        expect($feature->metadata)->toBe($metadata);
-        expect($feature->ai_provider)->toBe('openai');
-        expect($feature->ai_prompt)->toBe('Create a blog system with categories and tags');
-        expect($feature->generated_at)->toBe('2024-01-01T00:00:00Z');
-        expect($feature->version)->toBe('1.0.0');
-    });
-});
+        $this->assertEquals($metadata, $feature->metadata);
+        $this->assertEquals('openai', $feature->ai_provider);
+        $this->assertEquals('Create a blog system with categories and tags', $feature->ai_prompt);
+        $this->assertEquals('2024-01-01T00:00:00Z', $feature->generated_at);
+        $this->assertEquals('1.0.0', $feature->version);
+    }
 
-describe('Feature Version Factory', function () {
-    it('can create version with default attributes', function () {
+    public function test_can_create_version_with_default_attributes()
+    {
         $version = FeatureVersion::factory()->create();
         
-        expect($version)->toBeInstanceOf(FeatureVersion::class);
-        expect($version->feature_id)->toBeInt();
-        expect($version->version)->toBeString();
-        expect($version->description)->toBeString();
-        expect($version->code_snapshot)->toBeArray();
-        expect($version->is_active)->toBeBool();
-    });
+        $this->assertInstanceOf(FeatureVersion::class, $version);
+        $this->assertIsInt($version->feature_id);
+        $this->assertIsString($version->version);
+        $this->assertIsString($version->description);
+        $this->assertIsArray($version->code_snapshot);
+        $this->assertIsBool($version->is_active);
+    }
 
-    it('can create version with custom attributes', function () {
+    public function test_can_create_version_with_custom_attributes()
+    {
         $version = FeatureVersion::factory()->create([
             'version' => '2.0.0',
             'description' => 'Major update',
             'is_active' => true,
         ]);
         
-        expect($version->version)->toBe('2.0.0');
-        expect($version->description)->toBe('Major update');
-        expect($version->is_active)->toBeTrue();
-    });
+        $this->assertEquals('2.0.0', $version->version);
+        $this->assertEquals('Major update', $version->description);
+        $this->assertTrue($version->is_active);
+    }
 
-    it('can create active version', function () {
+    public function test_can_create_active_version()
+    {
         $version = FeatureVersion::factory()->active()->create();
         
-        expect($version->is_active)->toBeTrue();
-    });
+        $this->assertTrue($version->is_active);
+    }
 
-    it('can create inactive version', function () {
+    public function test_can_create_inactive_version()
+    {
         $version = FeatureVersion::factory()->inactive()->create();
         
-        expect($version->is_active)->toBeFalse();
-    });
+        $this->assertFalse($version->is_active);
+    }
 
-    it('can create version with custom code snapshot', function () {
+    public function test_can_create_version_with_custom_code_snapshot()
+    {
         $codeSnapshot = [
             'model' => '// Updated model code',
             'controller' => '// Updated controller code',
@@ -211,61 +224,65 @@ describe('Feature Version Factory', function () {
         
         $version = FeatureVersion::factory()->create(['code_snapshot' => $codeSnapshot]);
         
-        expect($version->code_snapshot)->toBe($codeSnapshot);
-        expect($version->getModelCode())->toBe('// Updated model code');
-        expect($version->getControllerCode())->toBe('// Updated controller code');
-        expect($version->getMigrationCode())->toBe('// Updated migration code');
-        expect($version->getViewsCode())->toBe($codeSnapshot['views']);
-        expect($version->getRouteCode())->toBe('// Updated route definitions');
-        expect($version->getApiRouteCode())->toBe('// Updated API route definitions');
-    });
+        $this->assertEquals($codeSnapshot, $version->code_snapshot);
+        $this->assertEquals('// Updated model code', $version->getModelCode());
+        $this->assertEquals('// Updated controller code', $version->getControllerCode());
+        $this->assertEquals('// Updated migration code', $version->getMigrationCode());
+        $this->assertEquals($codeSnapshot['views'], $version->getViewsCode());
+        $this->assertEquals('// Updated route definitions', $version->getRouteCode());
+        $this->assertEquals('// Updated API route definitions', $version->getApiRouteCode());
+    }
 
-    it('can create multiple versions', function () {
+    public function test_can_create_multiple_versions()
+    {
         $versions = FeatureVersion::factory()->count(3)->create();
         
-        expect($versions)->toHaveCount(3);
-        expect($versions->first())->toBeInstanceOf(FeatureVersion::class);
-    });
+        $this->assertCount(3, $versions);
+        $this->assertInstanceOf(FeatureVersion::class, $versions->first());
+    }
 
-    it('can create version for specific feature', function () {
+    public function test_can_create_version_for_specific_feature()
+    {
         $feature = DynamicFeature::factory()->create();
         $version = FeatureVersion::factory()->create(['feature_id' => $feature->id]);
         
-        expect($version->feature_id)->toBe($feature->id);
-        expect($version->feature)->toBeInstanceOf(DynamicFeature::class);
-        expect($version->feature->id)->toBe($feature->id);
-    });
-});
+        $this->assertEquals($feature->id, $version->feature_id);
+        $this->assertInstanceOf(DynamicFeature::class, $version->feature);
+        $this->assertEquals($feature->id, $version->feature->id);
+    }
 
-describe('Factory Relationships', function () {
-    it('can create feature with versions', function () {
+    public function test_can_create_feature_with_versions()
+    {
         $feature = DynamicFeature::factory()
             ->has(FeatureVersion::factory()->count(3))
             ->create();
         
-        expect($feature->versions)->toHaveCount(3);
-        expect($feature->versions->first())->toBeInstanceOf(FeatureVersion::class);
-    });
+        $this->assertCount(3, $feature->versions);
+        $this->assertInstanceOf(FeatureVersion::class, $feature->versions->first());
+    }
 
-    it('can create version with feature', function () {
+    public function test_can_create_version_with_feature()
+    {
         $version = FeatureVersion::factory()
             ->for(DynamicFeature::factory())
             ->create();
         
-        expect($version->feature)->toBeInstanceOf(DynamicFeature::class);
-        expect($version->feature_id)->toBe($version->feature->id);
-    });
+        $this->assertInstanceOf(DynamicFeature::class, $version->feature);
+        $this->assertEquals($version->feature->id, $version->feature_id);
+    }
 
-    it('can create feature with active version', function () {
+    public function test_can_create_feature_with_active_version()
+    {
         $feature = DynamicFeature::factory()
             ->has(FeatureVersion::factory()->active())
             ->create();
         
-        expect($feature->currentVersion)->toHaveCount(1);
-        expect($feature->currentVersion->first()->is_active)->toBeTrue();
-    });
+        $this->assertCount(1, $feature->currentVersion);
+        $this->assertTrue($feature->currentVersion->first()->is_active);
+    }
 
-    it('can create feature with multiple versions', function () {
+    public function test_can_create_feature_with_multiple_versions()
+    {
         $feature = DynamicFeature::factory()
             ->has(FeatureVersion::factory()->count(2)->sequence(
                 ['version' => '1.0.0', 'is_active' => false],
@@ -273,8 +290,8 @@ describe('Factory Relationships', function () {
             ))
             ->create();
         
-        expect($feature->versions)->toHaveCount(2);
-        expect($feature->currentVersion)->toHaveCount(1);
-        expect($feature->currentVersion->first()->version)->toBe('1.1.0');
-    });
-});
+        $this->assertCount(2, $feature->versions);
+        $this->assertCount(1, $feature->currentVersion);
+        $this->assertEquals('1.1.0', $feature->currentVersion->first()->version);
+    }
+}

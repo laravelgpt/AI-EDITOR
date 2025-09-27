@@ -1,0 +1,1 @@
+{"version":2,"defects":{"Tests\\Unit\\SimpleTest::test_service_provider_is_registered":7},"times":{"Tests\\Unit\\SimpleTest::test_can_run_simple_test":0.276,"Tests\\Unit\\SimpleTest::test_service_provider_is_registered":0.101}}

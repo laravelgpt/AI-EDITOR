@@ -76,7 +76,6 @@ abstract class ServiceProvider
      * Create a new service provider instance.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return void
      */
     public function __construct($app)
     {
@@ -462,7 +461,7 @@ abstract class ServiceProvider
     /**
      * Register the package's custom Artisan commands.
      *
-     * @param  array|mixed  $commands
+     * @param  mixed  $commands
      * @return void
      */
     public function commands($commands)
@@ -548,7 +547,7 @@ abstract class ServiceProvider
      * Add the given provider to the application's provider bootstrap file.
      *
      * @param  string  $provider
-     * @param  string  $path
+     * @param  string|null  $path
      * @return bool
      */
     public static function addProviderToBootstrapFile(string $provider, ?string $path = null)

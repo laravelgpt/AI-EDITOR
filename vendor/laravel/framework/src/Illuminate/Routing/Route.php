@@ -170,7 +170,6 @@ class Route
      * @param  array|string  $methods
      * @param  string  $uri
      * @param  \Closure|array  $action
-     * @return void
      */
     public function __construct($methods, $uri, $action)
     {
@@ -272,6 +271,8 @@ class Route
      * Get the controller instance for the route.
      *
      * @return mixed
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getController()
     {
@@ -792,7 +793,8 @@ class Route
     public function getDomain()
     {
         return isset($this->action['domain'])
-                ? str_replace(['http://', 'https://'], '', $this->action['domain']) : null;
+            ? str_replace(['http://', 'https://'], '', $this->action['domain'])
+            : null;
     }
 
     /**
@@ -1005,6 +1007,10 @@ class Route
             $this->domain($this->action['domain']);
         }
 
+        if (isset($this->action['can'])) {
+            $this->can($this->action['can']);
+        }
+
         return $this;
     }
 
@@ -1094,8 +1100,8 @@ class Route
         $ability = enum_value($ability);
 
         return empty($models)
-                    ? $this->middleware(['can:'.$ability])
-                    : $this->middleware(['can:'.$ability.','.implode(',', Arr::wrap($models))]);
+            ? $this->middleware(['can:'.$ability])
+            : $this->middleware(['can:'.$ability.','.implode(',', Arr::wrap($models))]);
     }
 
     /**
@@ -1138,15 +1144,22 @@ class Route
      */
     protected function staticallyProvidedControllerMiddleware(string $class, string $method)
     {
-        return (new Collection($class::middleware()))->map(function ($middleware) {
-            return $middleware instanceof Middleware
-                ? $middleware
-                : new Middleware($middleware);
-        })->reject(function ($middleware) use ($method) {
-            return static::methodExcludedByOptions(
-                $method, ['only' => $middleware->only, 'except' => $middleware->except]
-            );
-        })->map->middleware->flatten()->values()->all();
+        return (new Collection($class::middleware()))
+            ->map(function ($middleware) {
+                return $middleware instanceof Middleware
+                    ? $middleware
+                    : new Middleware($middleware);
+            })
+            ->reject(function ($middleware) use ($method) {
+                return static::methodExcludedByOptions(
+                    $method, ['only' => $middleware->only, 'except' => $middleware->except],
+                );
+            })
+            ->map
+            ->middleware
+            ->flatten()
+            ->values()
+            ->all();
     }
 
     /**
@@ -1267,6 +1280,8 @@ class Route
      * Get the dispatcher for the route's controller.
      *
      * @return \Illuminate\Routing\Contracts\ControllerDispatcher
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function controllerDispatcher()
     {
@@ -1314,9 +1329,9 @@ class Route
     /**
      * Get the optional parameter names for the route.
      *
-     * @return array
+     * @return array<string, null>
      */
-    protected function getOptionalParameterNames()
+    public function getOptionalParameterNames()
     {
         preg_match_all('/\{(\w+?)\?\}/', $this->uri(), $matches);
 
