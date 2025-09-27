@@ -1,9 +1,9 @@
 @echo off
-echo Pushing Laravel Multi-Stack Starter Kit to GitHub...
+echo Pushing Laravel GPT to GitHub...
 echo.
 
 echo Setting up Git configuration...
-git config --global user.name "Laravel Multi-Stack"
+git config --global user.name "Laravel GPT"
 git config --global user.email "laravelgpt@example.com"
 
 echo.
