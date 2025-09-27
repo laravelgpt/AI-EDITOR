@@ -302,7 +302,6 @@ class InstallerService
 
             // Install Laravel Breeze
             Artisan::call('breeze:install', [
-                '--stack' => 'blade',
                 '--dark' => false,
                 '--pest' => false,
                 '--ssr' => false,
