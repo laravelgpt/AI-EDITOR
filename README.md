@@ -65,31 +65,20 @@ A comprehensive Laravel 12+ package that provides **AI-powered text editing** ca
 composer require ai-editor/ai-text-editor
 ```
 
-### 2. Laravel 12 Compatibility Fix
-
-If you encounter the `handleCommand()` error during installation, run:
+### 2. Run Post-Installation Setup
 
 ```bash
-# Windows
-install-laravel12-fix.bat
-
-# Linux/Mac
-chmod +x install-laravel12-fix.sh
-./install-laravel12-fix.sh
-
-# Or manually
-php scripts/install-laravel12-fix.php
+php artisan ai-editor:post-install
 ```
 
-### 3. Publish Configuration
+This command automatically:
+- ✅ Detects Laravel 12+ and applies compatibility fixes
+- ✅ Publishes configuration files
+- ✅ Runs package discovery
+- ✅ Sets up everything needed for the package
 
-```bash
-php artisan vendor:publish --provider="AiEditor\AiTextEditor\AiTextEditorServiceProvider" --tag="config"
-```
+### 3. Install AI Text Editor
 
-### 4. Run Installation
-
-#### CLI Installer (Recommended)
 ```bash
 php artisan ai-editor:install
 ```

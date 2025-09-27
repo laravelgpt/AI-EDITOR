@@ -62,6 +62,7 @@ class AiTextEditorServiceProvider extends ServiceProvider
                 \AiEditor\AiTextEditor\Console\Commands\AiFeatureCommand::class,
                 \AiEditor\AiTextEditor\Console\Commands\WebInstallerCommand::class,
                 \AiEditor\AiTextEditor\Console\Commands\FixLaravel12Command::class,
+                \AiEditor\AiTextEditor\Console\Commands\PostInstallCommand::class,
             ]);
         }
     }
