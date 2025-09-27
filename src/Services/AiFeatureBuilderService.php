@@ -1,12 +1,12 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Services;
+namespace AiEditor\AiTextEditor\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use LaravelStarterKit\MultiStack\Models\DynamicFeature;
-use LaravelStarterKit\MultiStack\Models\FeatureVersion;
+use AiEditor\AiTextEditor\Models\DynamicFeature;
+use AiEditor\AiTextEditor\Models\FeatureVersion;
 
 class AiFeatureBuilderService
 {

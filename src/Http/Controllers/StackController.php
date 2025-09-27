@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Http\Controllers;
+namespace AiEditor\AiTextEditor\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use LaravelStarterKit\MultiStack\Services\StackService;
+use AiEditor\AiTextEditor\Services\StackService;
 
 class StackController
 {

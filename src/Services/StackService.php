@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Services;
+namespace AiEditor\AiTextEditor\Services;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;

@@ -1,25 +1,25 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack;
+namespace AiEditor\AiTextEditor;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use LaravelStarterKit\MultiStack\Services\InstallerService;
-use LaravelStarterKit\MultiStack\Services\StackService;
-use LaravelStarterKit\MultiStack\Services\ThemeService;
-use LaravelStarterKit\MultiStack\Console\Commands\InstallCommand;
-use LaravelStarterKit\MultiStack\Console\Commands\WebInstallerCommand;
-use LaravelStarterKit\MultiStack\Console\Commands\StackCommand;
-use LaravelStarterKit\MultiStack\Console\Commands\ThemeCommand;
-use LaravelStarterKit\MultiStack\Http\Controllers\InstallerController;
-use LaravelStarterKit\MultiStack\Http\Controllers\StackController;
-use LaravelStarterKit\MultiStack\Http\Controllers\ThemeController;
+use AiEditor\AiTextEditor\Services\InstallerService;
+use AiEditor\AiTextEditor\Services\StackService;
+use AiEditor\AiTextEditor\Services\ThemeService;
+use AiEditor\AiTextEditor\Console\Commands\InstallCommand;
+use AiEditor\AiTextEditor\Console\Commands\WebInstallerCommand;
+use AiEditor\AiTextEditor\Console\Commands\StackCommand;
+use AiEditor\AiTextEditor\Console\Commands\ThemeCommand;
+use AiEditor\AiTextEditor\Http\Controllers\InstallerController;
+use AiEditor\AiTextEditor\Http\Controllers\StackController;
+use AiEditor\AiTextEditor\Http\Controllers\ThemeController;
 
-class MultiStackServiceProvider extends ServiceProvider
+class AiTextEditorServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/multi-stack.php', 'multi-stack');
+        $this->mergeConfigFrom(__DIR__ . '/../config/ai-text-editor.php', 'ai-text-editor');
         
         $this->app->singleton(InstallerService::class);
         $this->app->singleton(StackService::class);
@@ -30,7 +30,7 @@ class MultiStackServiceProvider extends ServiceProvider
     {
         // Publish config
         $this->publishes([
-            __DIR__ . '/../config/multi-stack.php' => config_path('multi-stack.php'),
+            __DIR__ . '/../config/ai-text-editor.php' => config_path('ai-text-editor.php'),
         ], 'config');
 
         // Publish migrations
@@ -40,12 +40,12 @@ class MultiStackServiceProvider extends ServiceProvider
 
         // Publish assets
         $this->publishes([
-            __DIR__ . '/../resources/assets' => public_path('vendor/multi-stack'),
+            __DIR__ . '/../resources/assets' => public_path('vendor/ai-text-editor'),
         ], 'assets');
 
         // Publish stubs
         $this->publishes([
-            __DIR__ . '/../stubs' => base_path('stubs/multi-stack'),
+            __DIR__ . '/../stubs' => base_path('stubs/ai-text-editor'),
         ], 'stubs');
 
         // Register commands
@@ -62,7 +62,7 @@ class MultiStackServiceProvider extends ServiceProvider
         $this->loadRoutes();
 
         // Load views
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'multi-stack');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ai-text-editor');
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -71,32 +71,32 @@ class MultiStackServiceProvider extends ServiceProvider
     protected function loadRoutes(): void
     {
         // Installer routes
-        Route::prefix('multi-stack')
+        Route::prefix('ai-editor')
             ->middleware(['web'])
             ->group(function () {
-                Route::get('/installer', [InstallerController::class, 'index'])->name('multi-stack.installer');
-                Route::post('/installer/select-stack', [InstallerController::class, 'selectStack'])->name('multi-stack.select-stack');
-                Route::post('/installer/install', [InstallerController::class, 'install'])->name('multi-stack.install');
-                Route::get('/installer/progress/{id}', [InstallerController::class, 'progress'])->name('multi-stack.progress');
-                Route::get('/installer/complete', [InstallerController::class, 'complete'])->name('multi-stack.complete');
+                Route::get('/installer', [InstallerController::class, 'index'])->name('ai-editor.installer');
+                Route::post('/installer/select-stack', [InstallerController::class, 'selectStack'])->name('ai-editor.select-stack');
+                Route::post('/installer/install', [InstallerController::class, 'install'])->name('ai-editor.install');
+                Route::get('/installer/progress/{id}', [InstallerController::class, 'progress'])->name('ai-editor.progress');
+                Route::get('/installer/complete', [InstallerController::class, 'complete'])->name('ai-editor.complete');
             });
 
         // Stack management routes
-        Route::prefix('multi-stack/stacks')
+        Route::prefix('ai-editor/stacks')
             ->middleware(['web', 'auth'])
             ->group(function () {
-                Route::get('/', [StackController::class, 'index'])->name('multi-stack.stacks.index');
-                Route::post('/switch', [StackController::class, 'switch'])->name('multi-stack.stacks.switch');
-                Route::get('/status', [StackController::class, 'status'])->name('multi-stack.stacks.status');
+                Route::get('/', [StackController::class, 'index'])->name('ai-editor.stacks.index');
+                Route::post('/switch', [StackController::class, 'switch'])->name('ai-editor.stacks.switch');
+                Route::get('/status', [StackController::class, 'status'])->name('ai-editor.stacks.status');
             });
 
         // Theme management routes
-        Route::prefix('multi-stack/themes')
+        Route::prefix('ai-editor/themes')
             ->middleware(['web', 'auth'])
             ->group(function () {
-                Route::get('/', [ThemeController::class, 'index'])->name('multi-stack.themes.index');
-                Route::post('/apply', [ThemeController::class, 'apply'])->name('multi-stack.themes.apply');
-                Route::get('/preview/{theme}', [ThemeController::class, 'preview'])->name('multi-stack.themes.preview');
+                Route::get('/', [ThemeController::class, 'index'])->name('ai-editor.themes.index');
+                Route::post('/apply', [ThemeController::class, 'apply'])->name('ai-editor.themes.apply');
+                Route::get('/preview/{theme}', [ThemeController::class, 'preview'])->name('ai-editor.themes.preview');
             });
     }
 }

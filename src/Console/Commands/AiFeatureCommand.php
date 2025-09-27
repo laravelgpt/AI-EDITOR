@@ -1,14 +1,14 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Console\Commands;
+namespace AiEditor\AiTextEditor\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaravelStarterKit\MultiStack\Services\AiFeatureBuilderService;
-use LaravelStarterKit\MultiStack\Models\DynamicFeature;
+use AiEditor\AiTextEditor\Services\AiFeatureBuilderService;
+use AiEditor\AiTextEditor\Models\DynamicFeature;
 
 class AiFeatureCommand extends Command
 {
-    protected $signature = 'multi-stack:ai-feature 
+    protected $signature = 'ai-editor:ai-feature 
                             {action : The action to perform (generate, list, toggle, delete, regenerate)}
                             {prompt? : The AI prompt for feature generation}
                             {--category=custom : The feature category}

@@ -1,13 +1,13 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Console\Commands;
+namespace AiEditor\AiTextEditor\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaravelStarterKit\MultiStack\Services\StackService;
+use AiEditor\AiTextEditor\Services\StackService;
 
 class StackCommand extends Command
 {
-    protected $signature = 'multi-stack:stacks 
+    protected $signature = 'ai-editor:stacks 
                             {stack? : Show details for a specific stack}
                             {--switch= : Switch to a different stack}';
 

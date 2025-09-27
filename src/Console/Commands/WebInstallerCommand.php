@@ -1,13 +1,13 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Console\Commands;
+namespace AiEditor\AiTextEditor\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
 class WebInstallerCommand extends Command
 {
-    protected $signature = 'multi-stack:web-installer 
+    protected $signature = 'ai-editor:web-installer 
                             {--port=8001 : Port for the web installer}
                             {--host=127.0.0.1 : Host for the web installer}';
 

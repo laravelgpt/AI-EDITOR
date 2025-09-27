@@ -1,12 +1,12 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Http\Controllers;
+namespace AiEditor\AiTextEditor\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use LaravelStarterKit\MultiStack\Services\InstallerService;
-use LaravelStarterKit\MultiStack\Services\StackService;
-use LaravelStarterKit\MultiStack\Services\ThemeService;
+use AiEditor\AiTextEditor\Services\InstallerService;
+use AiEditor\AiTextEditor\Services\StackService;
+use AiEditor\AiTextEditor\Services\ThemeService;
 
 class InstallerController
 {

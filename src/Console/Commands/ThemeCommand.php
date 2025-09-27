@@ -1,13 +1,13 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Console\Commands;
+namespace AiEditor\AiTextEditor\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaravelStarterKit\MultiStack\Services\ThemeService;
+use AiEditor\AiTextEditor\Services\ThemeService;
 
 class ThemeCommand extends Command
 {
-    protected $signature = 'multi-stack:themes 
+    protected $signature = 'ai-editor:themes 
                             {theme? : Show details for a specific theme}
                             {--apply= : Apply a specific theme}
                             {--list : List all available themes}';

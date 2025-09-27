@@ -1,15 +1,15 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Console\Commands;
+namespace AiEditor\AiTextEditor\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaravelStarterKit\MultiStack\Services\InstallerService;
-use LaravelStarterKit\MultiStack\Services\StackService;
-use LaravelStarterKit\MultiStack\Services\ThemeService;
+use AiEditor\AiTextEditor\Services\InstallerService;
+use AiEditor\AiTextEditor\Services\StackService;
+use AiEditor\AiTextEditor\Services\ThemeService;
 
 class InstallCommand extends Command
 {
-    protected $signature = 'multi-stack:install 
+    protected $signature = 'ai-editor:install 
                             {--stack= : The frontend stack to install (blade-livewire, vue-spa, react-nextjs)}
                             {--theme= : The theme to apply (default, dark, minimal, colorful)}
                             {--no-deps : Skip installing dependencies}

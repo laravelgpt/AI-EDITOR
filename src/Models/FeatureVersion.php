@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelStarterKit\MultiStack\Models;
+namespace AiEditor\AiTextEditor\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
