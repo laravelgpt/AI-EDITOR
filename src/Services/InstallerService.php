@@ -104,6 +104,9 @@ class InstallerService
 
     protected function installComposerDependencies(): void
     {
+        // Fix Laravel 12 compatibility issues first
+        $this->fixLaravel12Compatibility();
+
         $dependencies = $this->stackService->getComposerDependencies($this->selectedStack);
         
         if (!empty($dependencies)) {
@@ -114,6 +117,45 @@ class InstallerService
             if ($result->failed()) {
                 throw new \Exception("Failed to install Composer dependencies: " . $result->errorOutput());
             }
+        }
+    }
+
+    protected function fixLaravel12Compatibility(): void
+    {
+        $this->log('Checking Laravel 12 compatibility...');
+
+        // Check if we're running Laravel 12+
+        $laravelVersion = app()->version();
+        if (version_compare($laravelVersion, '12.0.0', '>=')) {
+            $this->log('Detected Laravel 12+, applying compatibility fixes...');
+
+            // Update artisan file for Laravel 12
+            $this->updateArtisanFile();
+
+            // Update bootstrap/app.php for Laravel 12
+            $this->updateBootstrapApp();
+        }
+    }
+
+    protected function updateArtisanFile(): void
+    {
+        $artisanPath = base_path('artisan');
+        $stubPath = __DIR__ . '/../../stubs/laravel-12-artisan.stub';
+
+        if (File::exists($stubPath)) {
+            File::copy($stubPath, $artisanPath);
+            $this->log('Updated artisan file for Laravel 12 compatibility');
+        }
+    }
+
+    protected function updateBootstrapApp(): void
+    {
+        $bootstrapPath = base_path('bootstrap/app.php');
+        $stubPath = __DIR__ . '/../../stubs/laravel-12-bootstrap-app.stub';
+
+        if (File::exists($stubPath)) {
+            File::copy($stubPath, $bootstrapPath);
+            $this->log('Updated bootstrap/app.php for Laravel 12 compatibility');
         }
     }
 

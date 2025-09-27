@@ -49,6 +49,18 @@ class AiTextEditorServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        // Register commands
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \AiEditor\AiTextEditor\Console\Commands\InstallCommand::class,
+                \AiEditor\AiTextEditor\Console\Commands\StackCommand::class,
+                \AiEditor\AiTextEditor\Console\Commands\ThemeCommand::class,
+                \AiEditor\AiTextEditor\Console\Commands\AiFeatureCommand::class,
+                \AiEditor\AiTextEditor\Console\Commands\WebInstallerCommand::class,
+                \AiEditor\AiTextEditor\Console\Commands\FixLaravel12Command::class,
+            ]);
+        }
     }
 
     protected function loadRoutes(): void
