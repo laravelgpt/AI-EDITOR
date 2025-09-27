@@ -40,11 +40,8 @@
         }
     },
     "scripts": {
-        "post-install-cmd": [
-            "php -r \"if (file_exists('scripts/fix-laravel12.php')) { include 'scripts/fix-laravel12.php'; }\""
-        ],
-        "post-update-cmd": [
-            "php -r \"if (file_exists('scripts/fix-laravel12.php')) { include 'scripts/fix-laravel12.php'; }\""
+        "post-autoload-dump": [
+            "php scripts/composer-post-autoload.php"
         ]
     },
     "extra": {
