@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         processIsolation="false"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_KEY" value="base64:YourAppKeyHere"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="MULTI_STACK_DEBUG" value="true"/>
+        <env name="MULTI_STACK_AUTO_INSTALL" value="false"/>
+        <env name="MULTI_STACK_INSTALL_NPM" value="false"/>
+        <env name="MULTI_STACK_INSTALL_COMPOSER" value="false"/>
+        <env name="MULTI_STACK_RUN_MIGRATIONS" value="false"/>
+        <env name="MULTI_STACK_SEED_DATABASE" value="false"/>
+        <env name="MULTI_STACK_SETUP_AUTH" value="false"/>
+        <env name="MULTI_STACK_CREATE_ADMIN" value="false"/>
+        <env name="MULTI_STACK_SETUP_THEME" value="false"/>
+    </php>
+</phpunit>
