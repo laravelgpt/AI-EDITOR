@@ -11,7 +11,7 @@ class StackService
 
     public function __construct()
     {
-        $this->stacks = config('multi-stack.stacks', []);
+        $this->stacks = config('ai-text-editor.stacks', []);
     }
 
     public function getAvailableStacks(): array

@@ -38,6 +38,152 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Frontend Stacks Configuration
+    |--------------------------------------------------------------------------
+    */
+    'stacks' => [
+        'blade-livewire' => [
+            'name' => 'Blade + Livewire',
+            'description' => 'Traditional Laravel with Blade templates and Livewire components',
+            'dependencies' => [
+                'composer' => [
+                    'livewire/livewire',
+                    'laravel/breeze',
+                ],
+                'npm' => [
+                    '@tailwindcss/forms',
+                    'alpinejs',
+                ],
+            ],
+            'features' => [
+                'Server-side rendering',
+                'Real-time updates',
+                'Form handling',
+                'Authentication',
+            ],
+        ],
+        'vue-spa' => [
+            'name' => 'Vue.js SPA',
+            'description' => 'Single Page Application with Vue.js frontend',
+            'dependencies' => [
+                'composer' => [
+                    'laravel/sanctum',
+                    'laravel/breeze',
+                ],
+                'npm' => [
+                    'vue@^3.0',
+                    'vue-router@^4.0',
+                    'pinia@^2.0',
+                    'axios',
+                    '@vitejs/plugin-vue',
+                ],
+            ],
+            'features' => [
+                'Client-side routing',
+                'State management',
+                'API integration',
+                'Component-based architecture',
+            ],
+        ],
+        'react-nextjs' => [
+            'name' => 'React + Next.js',
+            'description' => 'React frontend with Next.js framework',
+            'dependencies' => [
+                'composer' => [
+                    'laravel/sanctum',
+                    'laravel/breeze',
+                ],
+                'npm' => [
+                    'react@^18.0',
+                    'react-dom@^18.0',
+                    'next@^14.0',
+                    '@types/react',
+                    '@types/react-dom',
+                ],
+            ],
+            'features' => [
+                'Server-side rendering',
+                'Static site generation',
+                'API routes',
+                'Component-based architecture',
+            ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Themes Configuration
+    |--------------------------------------------------------------------------
+    */
+    'themes' => [
+        'default' => [
+            'name' => 'Default Theme',
+            'description' => 'Clean and professional default theme',
+            'colors' => [
+                'primary' => '#3B82F6',
+                'secondary' => '#6B7280',
+                'success' => '#10B981',
+                'warning' => '#F59E0B',
+                'error' => '#EF4444',
+            ],
+            'features' => [
+                'Responsive design',
+                'Dark mode support',
+                'Accessibility compliant',
+            ],
+        ],
+        'dark' => [
+            'name' => 'Dark Theme',
+            'description' => 'Modern dark theme for better night viewing',
+            'colors' => [
+                'primary' => '#60A5FA',
+                'secondary' => '#9CA3AF',
+                'success' => '#34D399',
+                'warning' => '#FBBF24',
+                'error' => '#F87171',
+            ],
+            'features' => [
+                'Dark mode optimized',
+                'Reduced eye strain',
+                'Modern aesthetics',
+            ],
+        ],
+        'minimal' => [
+            'name' => 'Minimal Theme',
+            'description' => 'Clean and minimal design with focus on content',
+            'colors' => [
+                'primary' => '#000000',
+                'secondary' => '#6B7280',
+                'success' => '#059669',
+                'warning' => '#D97706',
+                'error' => '#DC2626',
+            ],
+            'features' => [
+                'Minimal design',
+                'Content focused',
+                'Fast loading',
+            ],
+        ],
+        'colorful' => [
+            'name' => 'Colorful Theme',
+            'description' => 'Vibrant and colorful theme for creative projects',
+            'colors' => [
+                'primary' => '#8B5CF6',
+                'secondary' => '#EC4899',
+                'success' => '#10B981',
+                'warning' => '#F59E0B',
+                'error' => '#EF4444',
+            ],
+            'features' => [
+                'Vibrant colors',
+                'Creative design',
+                'Engaging interface',
+            ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Editor Configuration
     |--------------------------------------------------------------------------
     */

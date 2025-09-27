@@ -10,7 +10,7 @@ class ThemeService
 
     public function __construct()
     {
-        $this->themes = config('multi-stack.themes', []);
+        $this->themes = config('ai-text-editor.themes', []);
     }
 
     public function getAvailableThemes(): array

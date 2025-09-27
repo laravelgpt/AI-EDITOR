@@ -210,7 +210,7 @@ class InstallerService
     protected function generatePackageJson(): void
     {
         $packageJson = [
-            'name' => 'laravel-multi-stack',
+            'name' => 'ai-text-editor',
             'private' => true,
             'type' => 'module',
             'scripts' => $this->stackService->getPackageScripts($this->selectedStack),
@@ -396,7 +396,7 @@ class InstallerService
         $steps[] = "Email: admin@example.com";
         $steps[] = "Password: password";
         $steps[] = "";
-        $steps[] = "For more information, visit: https://github.com/laravel-starter-kit/multi-stack";
+        $steps[] = "For more information, visit: https://github.com/laravelgpt/AI-EDITOR";
 
         return $steps;
     }
